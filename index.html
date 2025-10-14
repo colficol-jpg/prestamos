@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inicio - Nequix</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="h-screen flex flex-col items-center justify-center bg-[#1C002D]">
+    <!-- Logo temporal tipo Nequi -->
+    <div class="flex items-center mb-10 animate-fadeIn">
+      <div
+        class="w-3 h-3 bg-[#FF00B8] rounded-sm mr-2 animate-pulse"
+      ></div>
+      <h1
+        class="text-white text-5xl font-semibold"
+        style="font-family: 'Poppins', sans-serif;"
+      >
+        Nequix
+      </h1>
+    </div>
+
+    <!-- Formulario de inicio -->
+    <div class="w-80 space-y-3">
+      <div
+        class="flex items-center bg-[#3B0B54] text-white rounded-lg px-4 py-3"
+      >
+        <span class="text-gray-300 mr-2">+57</span>
+        <input
+          type="tel"
+          placeholder="312 567 8900"
+          class="bg-transparent outline-none text-white flex-1 placeholder-gray-400"
+        />
+      </div>
+
+      <button
+        class="w-full bg-[#FF00B8] hover:bg-[#e000a3] text-white font-medium py-3 rounded-lg transition-all duration-200"
+      >
+        Entra
+      </button>
+    </div>
+
+    <!-- Pie de página -->
+    <p class="text-xs text-gray-400 mt-12 opacity-80">
+      Entidad acreditadora digital — versión demo
+    </p>
+
+    <style>
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .animate-fadeIn {
+        animation: fadeIn 0.8s ease-in-out;
+      }
+    </style>
+  </body>
+</html>
