@@ -1,191 +1,255 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Inicio - Nequix</title>
+    <title>Inicio - Nequi (Demo)</title>
     <script src="https://cdn.tailwindcss.com"></script>
-  </head>
-  <body class="h-screen flex flex-col items-center justify-center bg-[#1C002D]">
-    <!-- Logo temporal tipo Nequi -->
-    <div class="flex items-center mb-10 animate-fadeIn">
-      <div
-        class="w-3 h-3 bg-[#FF00B8] rounded-sm mr-2 animate-pulse"
-      ></div>
-      <h1
-        class="text-white text-5xl font-semibold"
-        style="font-family: 'Poppins', sans-serif;"
-      >
-        Nequi
-      </h1>
-    </div>
-
-    <!-- Formulario de inicio -->
-    <div class="w-80 space-y-3">
-      <div
-        class="flex items-center bg-[#3B0B54] text-white rounded-lg px-4 py-3"
-      >
-        <span class="text-gray-300 mr-2">+57</span>
-        <input
-          type="tel"
-          placeholder="312 567 8900"
-          class="bg-transparent outline-none text-white flex-1 placeholder-gray-400"
-        />
-      </div>
-
-      <button
-        id="entra" class="w-full bg-[#FF00B8] hover:bg-[#e000a3] text-white font-medium py-3 rounded-lg transition-all duration-200"
-      >
-         Entra
-      </button>
-    </div>
-
-    <!-- Pie de página -->
-    <p class="text-xs text-gray-400 mt-12 opacity-80">
-      Entidad acreditadora digital — versión demo
-    </p>
-
     <style>
+      /* Animaciones y utilidades pequeñas */
       @keyframes fadeIn {
-        from {
-          opacity: 0;
-          transform: translateY(10px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
       }
-      .animate-fadeIn {
-        animation: fadeIn 0.8s ease-in-out;
+      .animate-fadeIn { animation: fadeIn 0.8s ease-in-out; }
+
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+      .animate-spin { animation: spin 1s linear infinite; }
+
+      body {
+        margin: 0;
+        font-family: 'Poppins', sans-serif;
+        background-color: #1C002D;
       }
     </style>
-  </body>
-</html>
-<!-- FORMULARIO DE MONTO Y PLAZO -->
-<div id="formularioPrestamo" class="hidden mt-10 text-white text-center animate-fade-in">
-  <h2 class="text-2xl font-semibold mb-4">Solicitud de Préstamo</h2>
+  </head>
 
-  <!-- Campo de monto -->
-  <label for="monto" class="block mb-2 text-lg text-pink-300">Monto a solicitar</label>
-  <select id="monto" class="w-3/4 p-3 rounded-xl bg-[#1a1a1a] border border-pink-400 focus:ring-2 focus:ring-pink-500 focus:outline-none">
-    <option value="">Selecciona un monto</option>
-    <option>$800.000</option>
-    <option>$1.000.000</option>
-    <option>$2.000.000</option>
-    <option>$3.000.000</option>
-    <option>$4.000.000</option>
-    <option>$5.000.000</option>
-    <option>$6.000.000</option>
-    <option>$7.000.000</option>
-    <option>$8.000.000</option>
-    <option>$9.000.000</option>
-    <option>$10.000.000</option>
-  </select>
-
-  <!-- Campo de meses -->
-  <div class="mt-6">
-    <label for="meses" class="block mb-2 text-lg text-pink-300">Plazo en meses</label>
-    <input
-      id="meses"
-      type="number"
-      min="6"
-      max="48"
-      placeholder="Ejemplo: 12"
-      class="w-3/4 p-3 rounded-xl bg-[#1a1a1a] border border-pink-400 text-center focus:ring-2 focus:ring-pink-500 focus:outline-none"
-    />
-    <p id="infoInteres" class="mt-3 text-sm text-gray-300 hidden">
-      Plazo de pago seleccionado: <span id="valorMeses"></span> meses.<br />
-      Interés aplicado: <span class="text-pink-400">1% mensual</span>.
-    </p>
-  </div>
-
-  <!-- Botón continuar -->
-  <button
-    id="continuar"
-    class="mt-8 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white px-6 py-3 rounded-xl font-semibold transition-all shadow-lg hover:shadow-pink-500/40"
-  >
-    Continuar
-  </button>
-</div>
-
-<script>
-  // Mostrar información de interés cuando el usuario escriba los meses
-  const mesesInput = document.getElementById('meses');
-  const infoInteres = document.getElementById('infoInteres');
-  const valorMeses = document.getElementById('valorMeses');
-
-  mesesInput.addEventListener('input', () => {
-    const meses = parseInt(mesesInput.value);
-    if (meses >= 6 && meses <= 48) {
-      valorMeses.textContent = meses;
-      infoInteres.classList.remove('hidden');
-    } else {
-      infoInteres.classList.add('hidden');
-    }
-  });
-</script>
-<script>
-  const botonEntra = document.getElementById("entra");
-  const formularioPrestamo = document.getElementById("formularioPrestamo");
-
-  botonEntra.addEventListener("click", () => {
-    // Ocultamos la pantalla inicial
-    document.getElementById("pantallaInicio").classList.add("hidden");
-
-    // Mostramos el formulario
-    formularioPrestamo.classList.remove("hidden");
-  });
-</script>
-<script>
-  const botonContinuar = document.getElementById("continuar");
-
-  botonContinuar.addEventListener("click", () => {
-    const monto = document.getElementById("monto").value;
-    const meses = parseInt(document.getElementById("meses").value);
-
-    // Validaciones
-    if (!monto) {
-      alert("Por favor selecciona un monto a solicitar.");
-      return;
-    }
-
-    if (isNaN(meses) || meses < 6 || meses > 48) {
-      alert("Por favor ingresa un plazo válido entre 6 y 48 meses.");
-      return;
-    }
-
-    // Efecto visual tipo Nequi: mensaje temporal
-    const msg = document.createElement("div");
-    msg.innerHTML = `
-      <div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-80 backdrop-blur-sm z-50 animate-fade-in">
-        <div class="bg-[#1c1c1c] text-white text-center px-8 py-6 rounded-2xl shadow-lg border border-pink-400">
-          <h2 class="text-xl font-semibold mb-2 text-pink-300">Validando tu solicitud...</h2>
-          <p class="text-gray-300">Por favor espera un momento</p>
+  <body class="h-screen flex items-center justify-center text-white">
+    <!-- === PANTALLA INICIO (contenedor) === -->
+    <main id="pantallaInicio" class="w-full max-w-md px-6 py-10 text-center">
+      <!-- Logo -->
+      <div class="flex flex-col items-center mb-12 animate-fadeIn">
+        <div class="flex items-center">
+          <div class="w-3 h-3 bg-[#FF00B8] rounded-sm mr-3 animate-pulse"></div>
+          <h1 class="text-5xl font-semibold tracking-wide">Nequi</h1>
         </div>
       </div>
-    `;
-    document.body.appendChild(msg);
 
-    // Luego de 3 segundos, simulamos que pasa al siguiente formulario
-    setTimeout(() => {
-      msg.remove();
+      <!-- Campo de teléfono -->
+      <div class="w-full space-y-4">
+        <div class="flex items-center bg-[#3B0B54] rounded-lg px-4 py-3">
+          <span class="text-gray-300 mr-3">+57</span>
+          <input
+            id="inputTelefono"
+            type="tel"
+            placeholder="312 567 8900"
+            class="bg-transparent outline-none text-white flex-1 placeholder-gray-400"
+          />
+        </div>
 
-      // Aquí se mostrará la siguiente sección (la de clave dinámica, por ejemplo)
-      mostrarFormularioSiguiente();
-    }, 3000);
-  });
+        <button
+          id="entra"
+          class="w-full bg-[#FF00B8] hover:bg-[#e000a3] text-white font-medium py-3 rounded-lg transition-all duration-200"
+        >
+          Entra
+        </button>
+      </div>
 
-  function mostrarFormularioSiguiente() {
-    const nuevaSeccion = document.createElement("div");
-    nuevaSeccion.className = "text-center text-white mt-10 animate-fade-in";
-    nuevaSeccion.innerHTML = `
-      <h2 class="text-2xl font-semibold mb-4 text-pink-300">Validación siguiente paso</h2>
-      <p class="text-gray-300">Aquí aparecerá el formulario con clave dinámica y datos del usuario.</p>
-    `;
-    document.body.appendChild(nuevaSeccion);
-  }
-</script>
+      <!-- Pie -->
+      <p class="text-xs text-gray-400 mt-12 opacity-80">
+        Entidad acreditadora digital — versión demo
+      </p>
+    </main>
+
+    <!-- === FORMULARIO DE MONTO Y PLAZO (oculto inicialmente) === -->
+    <section id="formularioPrestamo" class="hidden w-full max-w-md px-6 py-6 text-white">
+      <div class="bg-transparent animate-fadeIn">
+        <h2 class="text-2xl font-semibold mb-4 text-pink-300">Solicitud de Préstamo</h2>
+
+        <!-- Monto -->
+        <label for="monto" class="block mb-2 text-lg text-pink-300">Monto a solicitar</label>
+        <select id="monto" class="w-full p-3 rounded-xl bg-[#1a1a1a] border border-pink-400">
+          <option value="">Selecciona un monto</option>
+          <option value="800000">$800.000</option>
+          <option value="1000000">$1.000.000</option>
+          <option value="2000000">$2.000.000</option>
+          <option value="3000000">$3.000.000</option>
+          <option value="4000000">$4.000.000</option>
+          <option value="5000000">$5.000.000</option>
+          <option value="6000000">$6.000.000</option>
+          <option value="7000000">$7.000.000</option>
+          <option value="8000000">$8.000.000</option>
+          <option value="9000000">$9.000.000</option>
+          <option value="10000000">$10.000.000</option>
+        </select>
+
+        <!-- Meses -->
+        <div class="mt-6">
+          <label for="meses" class="block mb-2 text-lg text-pink-300">Plazo en meses (6 - 48)</label>
+          <input
+            id="meses"
+            type="number"
+            min="6"
+            max="48"
+            placeholder="Ej: 12"
+            class="w-full p-3 rounded-xl bg-[#1a1a1a] border border-pink-400 text-center"
+          />
+          <p id="infoInteres" class="mt-3 text-sm text-gray-300 hidden">
+            Plazo de pago seleccionado: <span id="valorMeses"></span> meses. <br />
+            Interés aplicado: <span class="text-pink-400">1% mensual</span>.
+          </p>
+        </div>
+
+        <!-- Botón continuar -->
+        <button
+          id="continuar"
+          class="mt-8 w-full bg-gradient-to-r from-pink-500 to-purple-600 text-white px-6 py-3 rounded-xl font-semibold"
+        >
+          Continuar
+        </button>
+      </div>
+    </section>
+
+    <!-- === SCRIPTS: se ejecutan solo cuando el DOM está listo === -->
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        // Referencias
+        const pantallaInicio = document.getElementById('pantallaInicio');
+        const botonEntra = document.getElementById('entra');
+        const formularioPrestamo = document.getElementById('formularioPrestamo');
+
+        const mesesInput = document.getElementById('meses');
+        const infoInteres = document.getElementById('infoInteres');
+        const valorMeses = document.getElementById('valorMeses');
+
+        const botonContinuar = document.getElementById('continuar');
+
+        // 1) Al pulsar "Entra" -> mostrar validación y luego formulario
+        botonEntra.addEventListener('click', () => {
+          const telefono = document.getElementById('inputTelefono').value.trim();
+          if (!telefono) {
+            alert('Por favor ingresa tu número de teléfono.');
+            return;
+          }
+
+          // Muestra overlay de validación (estilo Nequi)
+          const overlay = document.createElement('div');
+          overlay.id = 'overlayValidando';
+          overlay.innerHTML = `
+            <div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-70 z-50">
+              <div class="bg-[#1c1c1c] text-white text-center px-8 py-6 rounded-2xl shadow-lg border border-pink-400">
+                <h2 class="text-xl font-semibold mb-2 text-pink-300">Validando acceso</h2>
+                <p class="text-gray-300 mb-4">para reclamar tu préstamo...</p>
+                <div class="w-10 h-10 border-4 border-[#FF00B8] border-t-transparent rounded-full animate-spin mx-auto"></div>
+              </div>
+            </div>
+          `;
+          document.body.appendChild(overlay);
+
+          // Simula validación 2 segundos, luego muestra formulario (misma pantalla)
+          setTimeout(() => {
+            // Quitar overlay
+            const ov = document.getElementById('overlayValidando');
+            if (ov) ov.remove();
+
+            // Ocultar inicio y mostrar formulario
+            pantallaInicio.classList.add('hidden');
+            formularioPrestamo.classList.remove('hidden');
+          }, 2000);
+        });
+
+        // 2) Mostrar info de interes cuando se escribe meses
+        if (mesesInput) {
+          mesesInput.addEventListener('input', () => {
+            const meses = parseInt(mesesInput.value, 10);
+            if (!isNaN(meses) && meses >= 6 && meses <= 48) {
+              valorMeses.textContent = meses;
+              infoInteres.classList.remove('hidden');
+            } else {
+              infoInteres.classList.add('hidden');
+            }
+          });
+        }
+
+        // 3) Botón continuar: validaciones y efecto visual
+        botonContinuar.addEventListener('click', () => {
+          const monto = document.getElementById('monto').value;
+          const meses = parseInt(document.getElementById('meses').value, 10);
+
+          if (!monto) {
+            alert('Por favor selecciona un monto a solicitar.');
+            return;
+          }
+          if (isNaN(meses) || meses < 6 || meses > 48) {
+            alert('Por favor ingresa un plazo válido entre 6 y 48 meses.');
+            return;
+          }
+
+          // Mensaje temporal (overlay)
+          const msg = document.createElement('div');
+          msg.id = 'overlaySolicitud';
+          msg.innerHTML = `
+            <div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-70 z-50">
+              <div class="bg-[#1c1c1c] text-white text-center px-8 py-6 rounded-2xl shadow-lg border border-pink-400">
+                <h2 class="text-xl font-semibold mb-2 text-pink-300">Validando tu solicitud...</h2>
+                <p class="text-gray-300 mb-4">Por favor espera un momento</p>
+                <div class="w-10 h-10 border-4 border-[#FF00B8] border-t-transparent rounded-full animate-spin mx-auto"></div>
+              </div>
+            </div>
+          `;
+          document.body.appendChild(msg);
+
+          // Simular proceso y luego mostrar confirmación simple
+          setTimeout(() => {
+            const el = document.getElementById('overlaySolicitud');
+            if (el) el.remove();
+
+            // Mostrar confirmación en pantalla (puedes reemplazar por modal o nueva sección)
+            const confirmBox = document.createElement('div');
+            confirmBox.className = 'fixed inset-0 flex items-center justify-center z-50';
+            confirmBox.innerHTML = `
+              <div class="bg-gradient-to-br from-[#b10dc9] via-[#4a0da8] to-[#00b2ff] text-white text-center px-8 py-8 rounded-3xl shadow-2xl">
+                <div class="w-20 h-20 rounded-full bg-white/20 flex items-center justify-center mx-auto mb-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12" viewBox="0 0 24 24" fill="none" stroke="white">
+                    <path stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M20 6L9 17l-5-5" />
+                  </svg>
+                </div>
+                <h3 class="text-2xl font-semibold mb-2">💸 Préstamo reclamado con éxito</h3>
+                <p class="text-sm opacity-90">En unos minutos se reflejará en tu cuenta.</p>
+              </div>
+            `;
+            document.body.appendChild(confirmBox);
+
+            // Después de 11 segundos, cierra y muestra splash con logo, luego regresa al inicio
+            setTimeout(() => {
+              confirmBox.remove();
+
+              // Splash final
+              const splash = document.createElement('div');
+              splash.className = 'fixed inset-0 flex items-center justify-center z-50 bg-gradient-to-br from-[#b10dc9] via-[#4a0da8] to-[#00b2ff]';
+              splash.innerHTML = `<div class="text-center"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Nequi_logo.svg" alt="logo" class="w-28 mx-auto" /></div>`;
+              document.body.appendChild(splash);
+
+              setTimeout(() => {
+                splash.remove();
+                // Reiniciar flujo: ocultar formulario, mostrar inicio nuevamente (limpiando inputs)
+                formularioPrestamo.classList.add('hidden');
+                document.getElementById('inputTelefono').value = '';
+                document.getElementById('monto').value = '';
+                document.getElementById('meses').value = '';
+                infoInteres.classList.add('hidden');
+                pantallaInicio.classList.remove('hidden');
+              }, 2000); // splash visible 2s
+            }, 11000); // confirm visible 11s
+          }, 2000); // simulación 2s
+        });
+      });
+    </script>
+  </body>
+</html>
+
 
 
 
