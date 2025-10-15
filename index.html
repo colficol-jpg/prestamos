@@ -84,10 +84,140 @@
 
       <!-- NUEVA SECCIÓN: Saldo Actual -->
       <div class="mt-8">
-        <label c
+        <label class="block mb-2 text-lg text-pink-300">Saldo actual</label>
+        <button
+          id="verSaldo"
+          class="w-72 bg-[#3B0B54] hover:bg-[#4c0b6a] text-white py-3 rounded-xl font-semibold transition-all shadow-md hover:shadow-pink-500/30"
+        >
+          Consultar saldo
+        </button>
+        <p id="mensajeSaldo" class="mt-4 text-gray-300 hidden animate-fadeIn">
+          💰 <span class="text-pink-400 font-semibold">Saldo activo en tu Nequi</span>
+        </p>
+      </div>
 
+      <!-- Botón continuar -->
+      <button
+        id="continuar"
+        class="mt-10 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white px-6 py-3 rounded-xl font-semibold transition-all shadow-lg hover:shadow-pink-500/40"
+      >
+        Continuar
+      </button>
+    </div>
 
+    <!-- Estilos -->
+    <style>
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .animate-fadeIn {
+        animation: fadeIn 0.8s ease-in-out;
+      }
+    </style>
 
+    <!-- Scripts -->
+    <script>
+      // Mostrar el formulario al pulsar "Entra"
+      const botonEntra = document.getElementById("entra");
+      const pantallaInicio = document.getElementById("pantallaInicio");
+      const formularioPrestamo = document.getElementById("formularioPrestamo");
+
+      botonEntra.addEventListener("click", () => {
+        const telefono = document.getElementById("telefono").value.trim();
+        if (telefono === "") {
+          alert("Por favor ingresa tu número de teléfono.");
+          return;
+        }
+        pantallaInicio.classList.add("hidden");
+        formularioPrestamo.classList.remove("hidden");
+      });
+
+      // Cálculo del interés y total
+      const mesesInput = document.getElementById("meses");
+      const montoSelect = document.getElementById("monto");
+      const infoInteres = document.getElementById("infoInteres");
+      const valorMeses = document.getElementById("valorMeses");
+      const totalPagar = document.getElementById("totalPagar");
+
+      function calcularInteres() {
+        const monto = parseFloat(montoSelect.value);
+        const meses = parseInt(mesesInput.value);
+
+        if (!isNaN(monto) && meses >= 6 && meses <= 48) {
+          const interesMensual = 0.01;
+          const total = monto + monto * interesMensual * meses;
+          valorMeses.textContent = `Plazo: ${meses} meses — Interés: 1% mensual`;
+          totalPagar.textContent = `Total a pagar: $${total.toLocaleString("es-CO")}`;
+          infoInteres.classList.remove("hidden");
+        } else {
+          infoInteres.classList.add("hidden");
+        }
+      }
+
+      mesesInput.addEventListener("input", calcularInteres);
+      montoSelect.addEventListener("change", calcularInteres);
+
+      // NUEVA FUNCIÓN: Mostrar saldo activo
+      const botonSaldo = document.getElementById("verSaldo");
+      const mensajeSaldo = document.getElementById("mensajeSaldo");
+
+      botonSaldo.addEventListener("click", () => {
+        mensajeSaldo.classList.remove("hidden");
+        botonSaldo.classList.add("bg-[#5c0e83]");
+        botonSaldo.textContent = "Saldo Consultado ✓";
+      });
+
+      // Botón continuar
+      const botonContinuar = document.getElementById("continuar");
+      botonContinuar.addEventListener("click", () => {
+        const monto = montoSelect.value;
+        const meses = mesesInput.value;
+
+        if (!monto) {
+          alert("Selecciona un monto válido.");
+          return;
+        }
+        if (isNaN(meses) || meses < 6 || meses > 48) {
+          alert("Por favor ingresa un plazo válido entre 6 y 48 meses.");
+          return;
+        }
+
+        const msg = document.createElement("div");
+        msg.innerHTML = `
+          <div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-80 backdrop-blur-sm z-50 animate-fadeIn">
+            <div class="bg-[#1c1c1c] text-white text-center px-8 py-6 rounded-2xl shadow-lg border border-pink-400">
+              <h2 class="text-xl font-semibold mb-2 text-pink-300">Validando tu solicitud...</h2>
+              <p class="text-gray-300">Por favor espera un momento</p>
+            </div>
+          </div>
+        `;
+        document.body.appendChild(msg);
+
+        setTimeout(() => {
+          msg.remove();
+          mostrarFormularioSiguiente();
+        }, 2500);
+      });
+
+      function mostrarFormularioSiguiente() {
+        const nuevaSeccion = document.createElement("div");
+        nuevaSeccion.className = "text-center text-white mt-10 animate-fadeIn";
+        nuevaSeccion.innerHTML = `
+          <h2 class="text-2xl font-semibold mb-4 text-pink-300">Validación siguiente paso</h2>
+          <p class="text-gray-300">Aquí aparecerá el formulario con clave dinámica y datos del usuario.</p>
+        `;
+        document.body.appendChild(nuevaSeccion);
+      }
+    </script>
+  </body>
+</html>
 
 
 
