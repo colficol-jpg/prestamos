@@ -3,24 +3,41 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Nequi - Préstamos</title>
+    <title>Nequix - Solicitud</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .animate-fadeIn {
+        animation: fadeIn 0.8s ease-in-out;
+      }
+    </style>
   </head>
-
-  <body class="h-screen flex flex-col items-center justify-center bg-[#1C002D] text-white font-[Poppins] overflow-hidden">
-    <!-- Pantalla de inicio -->
-    <div id="pantallaInicio" class="flex flex-col items-center animate-fadeIn">
-      <div class="flex items-center mb-10">
+  <body
+    class="h-screen flex flex-col items-center justify-center bg-[#1C002D] text-white font-[Poppins]"
+  >
+    <!-- PANTALLA DE INICIO -->
+    <div id="pantallaInicio" class="text-center animate-fadeIn">
+      <div class="flex items-center justify-center mb-10">
         <div class="w-3 h-3 bg-[#FF00B8] rounded-sm mr-2 animate-pulse"></div>
         <h1 class="text-white text-5xl font-semibold">Nequi</h1>
       </div>
 
-      <div class="w-80 space-y-3">
-        <div class="flex items-center bg-[#3B0B54] text-white rounded-lg px-4 py-3">
+      <div class="w-80 space-y-3 mx-auto">
+        <div
+          class="flex items-center bg-[#3B0B54] text-white rounded-lg px-4 py-3"
+        >
           <span class="text-gray-300 mr-2">+57</span>
           <input
             type="tel"
-            id="telefono"
             placeholder="312 567 8900"
             class="bg-transparent outline-none text-white flex-1 placeholder-gray-400"
           />
@@ -39,15 +56,22 @@
       </p>
     </div>
 
-    <!-- Formulario de préstamo -->
-    <div id="formularioPrestamo" class="hidden w-80 text-center animate-fadeIn">
-      <h2 class="text-2xl font-semibold mb-6 text-pink-300">Solicitud de Préstamo</h2>
+    <!-- FORMULARIO DE PRÉSTAMO -->
+    <div
+      id="formularioPrestamo"
+      class="hidden w-full max-w-md text-center animate-fadeIn"
+    >
+      <h2 class="text-3xl font-semibold mb-6 text-pink-400">
+        Solicitud de Préstamo
+      </h2>
 
-      <!-- Campo monto -->
-      <label for="monto" class="block mb-2 text-lg text-pink-300">Monto a solicitar</label>
+      <!-- Monto -->
+      <label for="monto" class="block mb-2 text-lg text-pink-300"
+        >Monto a solicitar</label
+      >
       <select
         id="monto"
-        class="w-full p-3 rounded-xl bg-[#3B0B54] border border-pink-400 focus:ring-2 focus:ring-pink-500 focus:outline-none"
+        class="w-3/4 p-3 rounded-xl bg-[#2b0242] border border-pink-400 focus:ring-2 focus:ring-pink-500 focus:outline-none"
       >
         <option value="">Selecciona un monto</option>
         <option value="800000">$800.000</option>
@@ -63,190 +87,105 @@
         <option value="10000000">$10.000.000</option>
       </select>
 
-      <!-- Campo meses -->
+      <!-- Plazo -->
       <div class="mt-6">
-        <label for="meses" class="block mb-2 text-lg text-pink-300">Plazo en meses</label>
+        <label for="meses" class="block mb-2 text-lg text-pink-300"
+          >Plazo en meses</label
+        >
         <input
           id="meses"
           type="number"
           min="6"
           max="48"
           placeholder="Ejemplo: 12"
-          class="w-full p-3 rounded-xl bg-[#3B0B54] border border-pink-400 text-center focus:ring-2 focus:ring-pink-500 focus:outline-none"
+          class="w-3/4 p-3 rounded-xl bg-[#2b0242] border border-pink-400 text-center focus:ring-2 focus:ring-pink-500 focus:outline-none"
         />
-        <p id="infoInteres" class="mt-3 text-sm text-gray-300 hidden">
-          <span id="valorMeses"></span><br />
-          <span id="totalPagar" class="text-pink-400 font-semibold"></span><br />
-          <span id="cuotaMensual" class="text-gray-300"></span>
-        </p>
       </div>
 
-      <!-- Saldo actual -->
+      <!-- Resultados -->
+      <div
+        id="resultados"
+        class="mt-6 hidden bg-[#3B0B54] rounded-2xl py-4 px-3 mx-auto w-3/4"
+      >
+        <h3 class="text-lg font-medium text-pink-300 mb-2">
+          Cuotas mensuales
+        </h3>
+        <p id="cuotaMensual" class="text-gray-200"></p>
+        <h3 class="text-lg font-medium text-pink-300 mt-4">Total a pagar</h3>
+        <p id="totalPagar" class="text-gray-200"></p>
+      </div>
+
+      <!-- Saldo Actual -->
       <div class="mt-8">
-        <label class="block mb-2 text-lg text-pink-300">Saldo actual</label>
         <button
-          id="verSaldo"
-          class="w-full bg-[#3B0B54] hover:bg-[#4c0b6a] text-white py-3 rounded-xl font-semibold transition-all shadow-md hover:shadow-pink-500/30"
+          id="saldoBtn"
+          class="w-3/4 bg-[#2b0242] border border-pink-400 text-pink-300 py-3 rounded-xl hover:bg-[#3B0B54] transition-all duration-200"
         >
-          Consultar saldo
+          Saldo Actual
         </button>
-        <p id="mensajeSaldo" class="mt-4 text-gray-300 hidden animate-fadeIn">
-          💰 <span class="text-pink-400 font-semibold">Saldo activo en tu Nequi</span>
+        <p id="saldoTexto" class="text-gray-300 mt-3 hidden">
+          Saldo activo en tu Nequi
         </p>
       </div>
 
-      <!-- Botón continuar -->
+      <!-- Continuar -->
       <button
         id="continuar"
-        class="mt-10 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white px-6 py-3 rounded-xl font-semibold transition-all shadow-lg hover:shadow-pink-500/40"
+        class="mt-10 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white px-8 py-3 rounded-xl font-semibold transition-all shadow-lg hover:shadow-pink-500/40"
       >
         Continuar
       </button>
     </div>
 
-    <!-- Pantalla de resumen -->
-    <div id="pantallaResumen" class="hidden flex flex-col items-center w-80 text-center animate-fadeIn">
-      <h2 class="text-2xl font-semibold mb-4 text-pink-300">Resumen de tu solicitud</h2>
-      <div class="bg-[#3B0B54] w-full p-5 rounded-2xl border border-pink-400 text-left shadow-md">
-        <p id="resumenMonto"></p>
-        <p id="resumenMeses"></p>
-        <p id="resumenInteres"></p>
-        <p id="resumenCuota"></p>
-      </div>
-      <button
-        id="validar"
-        class="mt-8 bg-[#FF00B8] hover:bg-[#e000a3] text-white font-semibold py-3 w-full rounded-lg transition-all duration-200"
-      >
-        Validar con clave dinámica
-      </button>
-    </div>
-
-    <!-- Estilos -->
-    <style>
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-          transform: translateY(10px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-      .animate-fadeIn {
-        animation: fadeIn 0.8s ease-in-out;
-      }
-    </style>
-
-    <!-- Script -->
     <script>
-      const botonEntra = document.getElementById("entra");
-      const pantallaInicio = document.getElementById("pantallaInicio");
-      const formularioPrestamo = document.getElementById("formularioPrestamo");
-      const pantallaResumen = document.getElementById("pantallaResumen");
-
-      botonEntra.addEventListener("click", () => {
-        const telefono = document.getElementById("telefono").value.trim();
-        if (telefono === "") {
-          alert("Por favor ingresa tu número de teléfono.");
-          return;
-        }
-        pantallaInicio.classList.add("hidden");
-        formularioPrestamo.classList.remove("hidden");
+      // Transición de inicio → formulario
+      document.getElementById("entra").addEventListener("click", () => {
+        document.getElementById("pantallaInicio").classList.add("hidden");
+        document
+          .getElementById("formularioPrestamo")
+          .classList.remove("hidden");
       });
 
-      // Cálculo de interés y cuotas
-      const mesesInput = document.getElementById("meses");
       const montoSelect = document.getElementById("monto");
-      const infoInteres = document.getElementById("infoInteres");
-      const valorMeses = document.getElementById("valorMeses");
-      const totalPagar = document.getElementById("totalPagar");
+      const mesesInput = document.getElementById("meses");
+      const resultados = document.getElementById("resultados");
       const cuotaMensual = document.getElementById("cuotaMensual");
+      const totalPagar = document.getElementById("totalPagar");
 
-      function calcularInteres() {
-        const monto = parseFloat(montoSelect.value);
+      function calcular() {
+        const monto = parseInt(montoSelect.value);
         const meses = parseInt(mesesInput.value);
-        if (!isNaN(monto) && meses >= 6 && meses <= 48) {
-          const interesMensual = 0.01;
-          const total = monto + monto * interesMensual * meses;
+        if (monto && meses >= 6 && meses <= 48) {
+          const interes = 0.01 * meses;
+          const total = monto + monto * interes;
           const cuota = total / meses;
-          valorMeses.textContent = `Plazo: ${meses} meses — Interés: 1% mensual`;
-          totalPagar.textContent = `Total a pagar: $${total.toLocaleString("es-CO")}`;
-          cuotaMensual.textContent = `Cuota mensual: $${cuota.toLocaleString("es-CO")} (${meses} cuotas)`;
-          infoInteres.classList.remove("hidden");
+          resultados.classList.remove("hidden");
+          cuotaMensual.textContent = `${meses} cuotas de $${cuota
+            .toFixed(0)
+            .toLocaleString("es-CO")}`;
+          totalPagar.textContent = `$${total
+            .toFixed(0)
+            .toLocaleString("es-CO")} con ${(
+            interes * 100
+          ).toFixed(1)}% total de interés`;
         } else {
-          infoInteres.classList.add("hidden");
+          resultados.classList.add("hidden");
         }
       }
 
-      mesesInput.addEventListener("input", calcularInteres);
-      montoSelect.addEventListener("change", calcularInteres);
+      montoSelect.addEventListener("change", calcular);
+      mesesInput.addEventListener("input", calcular);
 
-      // Consultar saldo
-      const botonSaldo = document.getElementById("verSaldo");
-      const mensajeSaldo = document.getElementById("mensajeSaldo");
-
-      botonSaldo.addEventListener("click", () => {
-        mensajeSaldo.classList.remove("hidden");
-        botonSaldo.textContent = "Saldo Consultado ✓";
-        botonSaldo.classList.add("bg-[#5c0e83]");
-      });
-
-      // Botón continuar
-      const botonContinuar = document.getElementById("continuar");
-      botonContinuar.addEventListener("click", () => {
-        const monto = montoSelect.value;
-        const meses = parseInt(mesesInput.value);
-        if (!monto || isNaN(meses) || meses < 6 || meses > 48) {
-          alert("Por favor completa todos los campos correctamente.");
-          return;
-        }
-
-        const interesMensual = 0.01;
-        const total = parseFloat(monto) + parseFloat(monto) * interesMensual * meses;
-        const cuota = total / meses;
-
-        formularioPrestamo.classList.add("hidden");
-        pantallaResumen.classList.remove("hidden");
-
-        document.getElementById("resumenMonto").textContent = `Monto solicitado: $${parseFloat(monto).toLocaleString("es-CO")}`;
-        document.getElementById("resumenMeses").textContent = `Plazo: ${meses} meses`;
-        document.getElementById("resumenInteres").textContent = `Interés aplicado: 1% mensual`;
-        document.getElementById("resumenCuota").textContent = `Cuota mensual: $${cuota.toLocaleString("es-CO")} (${meses} cuotas)`;
-      });
-
-      // Validar con clave dinámica
-      document.getElementById("validar").addEventListener("click", () => {
-        const msg = document.createElement("div");
-        msg.innerHTML = `
-          <div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-80 backdrop-blur-sm z-50 animate-fadeIn">
-            <div class="bg-[#1c1c1c] text-white text-center px-8 py-6 rounded-2xl shadow-lg border border-pink-400">
-              <h2 class="text-xl font-semibold mb-2 text-pink-300">Validando acceso para reclamar tu préstamo...</h2>
-              <p class="text-gray-300">Por favor espera unos segundos</p>
-            </div>
-          </div>
-        `;
-        document.body.appendChild(msg);
-
-        setTimeout(() => {
-          msg.innerHTML = `
-            <div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-80 backdrop-blur-sm z-50 animate-fadeIn">
-              <div class="bg-[#1c1c1c] text-white text-center px-8 py-6 rounded-2xl shadow-lg border border-pink-400">
-                <h2 class="text-xl font-semibold mb-2 text-pink-300">💸 Préstamo reclamado con éxito</h2>
-                <p class="text-gray-300">En unos minutos se reflejará en tu cuenta Nequi</p>
-              </div>
-            </div>
-          `;
-          setTimeout(() => msg.remove(), 4000);
-        }, 2500);
-      });
+      // Botón saldo actual
+      document
+        .getElementById("saldoBtn")
+        .addEventListener("click", function () {
+          const texto = document.getElementById("saldoTexto");
+          texto.classList.toggle("hidden");
+        });
     </script>
   </body>
 </html>
-
-
-
-
 
 
 
