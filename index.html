@@ -1,109 +1,107 @@
 <!DOCTYPE html>
 <html lang="es">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Nequix - Inspirado en Nequi</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Nequi Inspirado</title>
     <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- Fuente Poppins -->
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
-
     <style>
       * {
         font-family: "Poppins", sans-serif;
       }
-
       body {
-        background: linear-gradient(180deg, #1b0032 0%, #2b0049 100%);
+        margin: 0;
+        background: linear-gradient(180deg, #1c002d 0%, #280047 100%);
         color: white;
         min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
-
       .tarjeta {
         background: rgba(255, 255, 255, 0.05);
-        backdrop-filter: blur(8px);
+        backdrop-filter: blur(15px);
         border: 1px solid rgba(255, 0, 184, 0.3);
-        border-radius: 1.2rem;
-        box-shadow: 0 0 25px rgba(255, 0, 184, 0.1);
+        border-radius: 1.5rem;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
       }
-
       .boton {
         background: linear-gradient(90deg, #ff00b8, #a100ff);
       }
-
       .boton:hover {
-        background: linear-gradient(90deg, #ff33cc, #b300ff);
+        background: linear-gradient(90deg, #ff33d4, #b300ff);
       }
-
       @keyframes fadeIn {
         from {
           opacity: 0;
-          transform: translateY(10px);
+          transform: translateY(20px);
         }
         to {
           opacity: 1;
           transform: translateY(0);
         }
       }
-
       .animate-fadeIn {
-        animation: fadeIn 0.8s ease-in-out;
+        animation: fadeIn 0.7s ease-in-out;
+      }
+      input, select {
+        color: white;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 0, 184, 0.3);
+      }
+      input:focus, select:focus {
+        outline: none;
+        box-shadow: 0 0 8px rgba(255, 0, 184, 0.5);
+        border-color: #ff00b8;
+        background: rgba(255, 255, 255, 0.1);
       }
     </style>
   </head>
-
-  <body class="flex flex-col items-center justify-center">
-    <!-- Pantalla de inicio -->
+  <body>
+    <!-- INICIO -->
     <div id="pantallaInicio" class="text-center animate-fadeIn">
-      <div class="flex items-center justify-center mb-10">
+      <div class="flex items-center justify-center mb-8">
         <div class="w-3 h-3 bg-[#FF00B8] rounded-sm mr-2 animate-pulse"></div>
-        <h1 class="text-white text-5xl font-semibold tracking-wide">Nequi</h1>
+        <h1 class="text-5xl font-semibold">Nequi</h1>
       </div>
 
-      <div class="tarjeta w-80 p-6 space-y-4 mx-auto">
-        <div
-          class="flex items-center bg-[#3B0B54]/60 rounded-lg px-4 py-3 border border-pink-500/30"
-        >
+      <div class="tarjeta w-80 mx-auto p-6 space-y-4">
+        <div class="flex items-center bg-[#3B0B54]/50 rounded-lg px-4 py-3">
           <span class="text-gray-300 mr-2">+57</span>
           <input
             id="telefono"
             type="tel"
             placeholder="312 567 8900"
-            class="bg-transparent outline-none text-white flex-1 placeholder-gray-400"
+            class="flex-1 bg-transparent placeholder-gray-400"
           />
         </div>
-
         <button
           id="entra"
-          class="w-full boton text-white font-medium py-3 rounded-lg transition-all duration-200"
+          class="w-full boton text-white font-semibold py-3 rounded-lg transition-all"
         >
           Entra
         </button>
       </div>
 
-      <p class="text-xs text-gray-400 mt-12 opacity-80">
+      <p class="text-xs text-gray-400 mt-8 opacity-80">
         Entidad acreditadora digital — versión demo
       </p>
     </div>
 
-    <!-- Formulario de préstamo -->
+    <!-- FORMULARIO -->
     <div id="formularioPrestamo" class="hidden animate-fadeIn">
-      <div class="tarjeta w-80 p-6 text-center space-y-5">
-        <h2 class="text-2xl font-semibold text-pink-400">
-          Solicitud de Préstamo
-        </h2>
+      <div class="tarjeta w-80 mx-auto p-6 space-y-5">
+        <h2 class="text-2xl font-semibold text-pink-300">Solicitud de Préstamo</h2>
 
         <div>
-          <label class="block text-pink-300 mb-2">Monto a solicitar</label>
-          <select
-            id="monto"
-            class="w-full p-3 rounded-lg bg-[#1f0036] border border-pink-400 focus:ring-2 focus:ring-pink-500 outline-none text-white"
-          >
+          <label class="block mb-1 text-pink-300">Monto a solicitar</label>
+          <select id="monto" class="w-full p-3 rounded-lg">
             <option value="">Selecciona un monto</option>
+            <option value="800000">$800.000</option>
             <option value="1000000">$1.000.000</option>
             <option value="2000000">$2.000.000</option>
             <option value="3000000">$3.000.000</option>
@@ -118,39 +116,39 @@
         </div>
 
         <div>
-          <label class="block text-pink-300 mb-2">Plazo en meses</label>
+          <label class="block mb-1 text-pink-300">Plazo (meses)</label>
           <input
             id="meses"
             type="number"
             min="6"
             max="48"
-            placeholder="Ejemplo: 12"
-            class="w-full p-3 rounded-lg bg-[#1f0036] border border-pink-400 text-center text-white focus:ring-2 focus:ring-pink-500 outline-none"
+            placeholder="Ej: 12"
+            class="w-full p-3 rounded-lg text-center"
           />
         </div>
 
-        <div id="resultados" class="hidden mt-4">
-          <p class="text-sm text-gray-300 mb-1">Cuotas mensuales</p>
-          <p id="cuotaMensual" class="text-lg text-pink-300 font-medium"></p>
-          <p class="text-sm text-gray-300 mt-3">Total a pagar</p>
-          <p id="totalPagar" class="text-lg text-pink-300 font-medium"></p>
+        <div id="resultados" class="hidden space-y-2">
+          <p class="text-sm text-gray-300">Cuotas mensuales</p>
+          <p id="cuotaMensual" class="text-lg text-pink-300 font-semibold"></p>
+          <p class="text-sm text-gray-300">Total a pagar</p>
+          <p id="totalPagar" class="text-lg text-pink-300 font-semibold"></p>
         </div>
 
         <div>
           <button
             id="saldoBtn"
-            class="w-full bg-[#1f0036] border border-pink-400 text-pink-300 py-3 rounded-lg hover:bg-[#3B0B54]/70 transition-all duration-200"
+            class="w-full bg-[#3B0B54]/70 rounded-lg py-3 text-pink-300 font-semibold border border-pink-400 hover:bg-[#4c0b6a]/70 transition"
           >
             Saldo Actual
           </button>
-          <p id="saldoTexto" class="text-gray-300 mt-3 hidden">
+          <p id="saldoTexto" class="text-gray-300 mt-2 hidden">
             Saldo activo en tu Nequi
           </p>
         </div>
 
         <button
           id="continuar"
-          class="w-full boton py-3 rounded-lg font-semibold text-white mt-2 shadow-md hover:shadow-pink-500/40"
+          class="w-full boton py-3 rounded-lg font-semibold text-white mt-4"
         >
           Continuar
         </button>
@@ -158,48 +156,49 @@
     </div>
 
     <script>
-      // Cambio de pantalla
       document.getElementById("entra").addEventListener("click", () => {
+        const tel = document.getElementById("telefono").value.trim();
+        if (!tel) {
+          alert("Ingresa tu número de teléfono");
+          return;
+        }
         document.getElementById("pantallaInicio").classList.add("hidden");
         document.getElementById("formularioPrestamo").classList.remove("hidden");
       });
 
-      // Cálculo automático de cuotas
-      const monto = document.getElementById("monto");
-      const meses = document.getElementById("meses");
-      const resultados = document.getElementById("resultados");
-      const cuotaMensual = document.getElementById("cuotaMensual");
-      const totalPagar = document.getElementById("totalPagar");
+      const selMonto = document.getElementById("monto");
+      const inpMeses = document.getElementById("meses");
+      const resDiv = document.getElementById("resultados");
+      const pCuota = document.getElementById("cuotaMensual");
+      const pTotal = document.getElementById("totalPagar");
 
-      function calcular() {
-        const valor = parseInt(monto.value);
-        const plazo = parseInt(meses.value);
-        if (valor && plazo >= 6 && plazo <= 48) {
-          const interesTotal = 0.01 * plazo;
-          const total = valor + valor * interesTotal;
-          const cuota = total / plazo;
-
-          resultados.classList.remove("hidden");
-          cuotaMensual.textContent = `${plazo} cuotas de $${cuota
+      function calcCuotas() {
+        const m = parseFloat(selMonto.value);
+        const mp = parseInt(inpMeses.value);
+        if (m && mp >= 6 && mp <= 48) {
+          const i = 0.01;
+          const total = m + m * i * mp;
+          const cuota = total / mp;
+          resDiv.classList.remove("hidden");
+          pCuota.textContent = `${mp} cuotas de $${cuota
             .toFixed(0)
             .toLocaleString("es-CO")}`;
-          totalPagar.textContent = `$${total
+          pTotal.textContent = `$${total
             .toFixed(0)
-            .toLocaleString("es-CO")} con ${(
-            interesTotal * 100
-          ).toFixed(1)}% total de interés`;
+            .toLocaleString("es-CO")}`;
         } else {
-          resultados.classList.add("hidden");
+          resDiv.classList.add("hidden");
         }
       }
 
-      monto.addEventListener("change", calcular);
-      meses.addEventListener("input", calcular);
+      selMonto.addEventListener("change", calcCuotas);
+      inpMeses.addEventListener("input", calcCuotas);
 
-      // Saldo activo
       document.getElementById("saldoBtn").addEventListener("click", () => {
         document.getElementById("saldoTexto").classList.toggle("hidden");
       });
     </script>
   </body>
 </html>
+
+
