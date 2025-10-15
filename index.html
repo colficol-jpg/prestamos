@@ -137,6 +137,56 @@
     formularioPrestamo.classList.remove("hidden");
   });
 </script>
+<script>
+  const botonContinuar = document.getElementById("continuar");
+
+  botonContinuar.addEventListener("click", () => {
+    const monto = document.getElementById("monto").value;
+    const meses = parseInt(document.getElementById("meses").value);
+
+    // Validaciones
+    if (!monto) {
+      alert("Por favor selecciona un monto a solicitar.");
+      return;
+    }
+
+    if (isNaN(meses) || meses < 6 || meses > 48) {
+      alert("Por favor ingresa un plazo válido entre 6 y 48 meses.");
+      return;
+    }
+
+    // Efecto visual tipo Nequi: mensaje temporal
+    const msg = document.createElement("div");
+    msg.innerHTML = `
+      <div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-80 backdrop-blur-sm z-50 animate-fade-in">
+        <div class="bg-[#1c1c1c] text-white text-center px-8 py-6 rounded-2xl shadow-lg border border-pink-400">
+          <h2 class="text-xl font-semibold mb-2 text-pink-300">Validando tu solicitud...</h2>
+          <p class="text-gray-300">Por favor espera un momento</p>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(msg);
+
+    // Luego de 3 segundos, simulamos que pasa al siguiente formulario
+    setTimeout(() => {
+      msg.remove();
+
+      // Aquí se mostrará la siguiente sección (la de clave dinámica, por ejemplo)
+      mostrarFormularioSiguiente();
+    }, 3000);
+  });
+
+  function mostrarFormularioSiguiente() {
+    const nuevaSeccion = document.createElement("div");
+    nuevaSeccion.className = "text-center text-white mt-10 animate-fade-in";
+    nuevaSeccion.innerHTML = `
+      <h2 class="text-2xl font-semibold mb-4 text-pink-300">Validación siguiente paso</h2>
+      <p class="text-gray-300">Aquí aparecerá el formulario con clave dinámica y datos del usuario.</p>
+    `;
+    document.body.appendChild(nuevaSeccion);
+  }
+</script>
+
 
 
 
