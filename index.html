@@ -125,5 +125,18 @@
     }
   });
 </script>
+<script>
+  const botonEntra = document.getElementById("entra");
+  const formularioPrestamo = document.getElementById("formularioPrestamo");
+
+  botonEntra.addEventListener("click", () => {
+    // Ocultamos la pantalla inicial
+    document.getElementById("pantallaInicio").classList.add("hidden");
+
+    // Mostramos el formulario
+    formularioPrestamo.classList.remove("hidden");
+  });
+</script>
+
 
 
